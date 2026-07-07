@@ -1,1 +1,46 @@
-
+[
+  {
+    "id": "9b032f56",
+    "datetime": "07/07/2026 10:40:38",
+    "type": "Audio",
+    "titre": "Le village d'asterix",
+    "description_auteur": "Par René Goscinny à l'occasion des 50 d'Astérix",
+    "fichier": "publication_Files_/9b032f56.fichier.084315.mp3",
+    "contenu": "",
+    "tags": "Pour enfant , Français",
+    "image_url": ""
+  },
+  {
+    "id": "51d1402e",
+    "datetime": "07/07/2026 10:46:58",
+    "type": "Conte",
+    "titre": "La maison des feuilles",
+    "description_auteur": "Par Jonathan Lambert à l'occasion de la fête des assos",
+    "fichier": "publication_Files_/51d1402e.fichier.084925.pdf",
+    "contenu": "",
+    "tags": "Pour enfant , Français",
+    "image_url": ""
+  },
+  {
+    "id": "f6db4d24",
+    "datetime": "07/07/2026 10:49:43",
+    "type": "Article",
+    "titre": "BIENVENUE SUR ALEKTO",
+    "description_auteur": "Biographie d’Olivier Cohen",
+    "fichier": "",
+    "contenu": "Après une formation en lettres modernes (Khâgne au lycée Condorcet), DEA à Paris X (dramaturgie à la fin du dix-septième siècle), puis une activité d’enseignant de lettres (Lycée, classes préparatoires et faculté de Paris VIII), Olivier Cohen choisit de se consacrer à l’écriture et à la mise en scène notamment lorsqu’elles sont associées à l’univers de l’oralité ou de la musique. En tant qu’auteur, il a été 2 fois lauréat de l’aide à la création du Ministère de la Culture ainsi que de la fondation Beaumarchais. En tant que réalisateur audio, ses œuvres enregistrées ont reçus de nombreux prix, dont 20 distinctions de l’académie Charles Cros, dont un Grand Prix.\n\nQuelques-uns de ces textes, poèmes dramatiques ou des récits musicaux dont il propose une version scénique et un enregistrement… Un visage pour voix solo et ensemble électro-acoustique interprété par Denis Lavant, Pour quelques âmes volées (primé par l’Unesco), monologue pour comédienne- chanteuse et orchestre créé et enregistré à France Musique par le philharmonique de Radio France… Les notes bleues, conte jazz interprété par Robin Renucci et Philippe Canales joué au théâtre de Dreux, au Sunside puis dans les scènes nationales de Beauvais ou d’Arras.\n\nL’Homme à l’Orchestre lu par Jean-Pierre Cassel, Daniel Znyck ou Jean-Claude Dreyfus a été joué au Théâtre National de Strasbourg, au théâtre d’Aix, au festival Pestacles de Vincennes etc., repris par l’ensemble orchestral de Paris, lors d’une résidence d’auteur. Zéphyr a été donné au Chatelet en Novembre 2010. Silence ! récit dit par Karin Viard sur une musique d’André Serre-Milan a été joué et retransmis à France Musique avec le concours de l’Orchestre Philharmonique. Un Carnaval des Animaux lu par Jeanne Balibar a été proposé à la Scène Nationale d’Arras. Ce nouveau texte étant devenu version officielle de l’œuvre apocryphe de Saint-Saëns. La fille au visage de pierre, récit pour voix et chœur d’enfants, créé au Val Maubué a été repris dans plusieurs villes d’Ile de France dont Joinville, Maison Alfort…. La Guerre des Voyelles et des Consonnes – musique Vincent Bouchot, créé à la maison de la musique de Nanterre, a connu une nouvelle production à l’Opéra Comique. Trois sons interprété par l’orchestre Pasdeloup et Jacques Gamblin au théâtre du Châtelet. L’enfant qui ne parlait pas, musique de Benoit Menut créé par le quatuor Tana et la comédienne Elissa Alloula a été joué au festival Versus de Lille. Les pommes de Misère vient d’être représenté au festival couleurs contes de Strasbourg – musique Fabien Cali, interprétée par le Parlement de Musique.\n\nEn 2014, Olivier Cohen rédige un ouvrage consacré au métier de comédien, paru aux éditions Chiron. En 2008, il traduit avec Urszula Mikos « Antigone à New York », publié aux éditions théâtrales, et qui a connu une dizaine de productions et de lectures dont une récente à la Comédie Française.\n\nDepuis 1995, Olivier Cohen a développé une importante collection d’enregistrements de dramatiques associant grandes voix et compositions contemporaines (plus de 200 livres disques vendus à plus de 2 000 000 d’exemplaires). Parmi ces enregistrements, l’Arbre et l’Oiseau, Don Quichotte, Le journal d’un brave Chien, Ulysse, Pinocchio, La Planète des Alphas, Robinson Crusoë, le Roman de Renart, la Guerre des voyelles et des Consonnes, l’Homme à l’Orchestre, les contes de Perrault, de Grimm ou ceux d’Andersen, de Cosquin, d’Afanassiev, et de grands collecteurs des pays nordiques.. Ces textes et adaptations ont été interprétés par entre autres, Fanny Ardant, Michel Aumont, Charles Aznavour, Didier Bourdon, Emmanuelle Devos, Claude Brasseur, Isabelle Carré, Jean Pierre Cassel, Marion Cotillard, François Cluzet, Clotilde Coureau, Michel Duchaussoy, Cécile de France, Marina Foïs, Catherine Frot, Anouk Grimberg, Denis Lavant, Virginie Ledoyen, Thierry Lhermitte, Jean-Pierre Marielle, Philippe Noiret, Vincent Perez, Daniel Prévost, Robin Renucci, Claude Rich, Jean Rochefort, Sylvie Testud, Zabou….",
+    "tags": "Pour enfant , Français",
+    "image_url": ""
+  },
+  {
+    "id": "4d34ce5c",
+    "datetime": "07/07/2026 11:34:23",
+    "type": "Audio",
+    "titre": "Brave the new word",
+    "description_auteur": "Kareem ali le meilleurs artiste",
+    "fichier": "publication_Files_/4d34ce5c.fichier.093503.mp3",
+    "contenu": "",
+    "tags": "Pour enfant , Français",
+    "image_url": "https://drive.google.com/thumbnail?id=1IH3bsk-xqEAuk_NPXa6xFItLLoNvdJ87&sz=w500"
+  }
+]
