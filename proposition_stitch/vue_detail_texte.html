@@ -1,0 +1,284 @@
+<!DOCTYPE html><html class="light" lang="fr" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Archivo+Narrow:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#f0ede8",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1c1c19",
+                    "surface-variant": "#e5e2dd",
+                    "on-primary-container": "#fffbff",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#656464",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#777470",
+                    "primary-fixed-dim": "#ffb3ae",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fcf9f4",
+                    "tertiary-fixed-dim": "#cac6c1",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#ffb3ae",
+                    "surface": "#fcf9f4",
+                    "surface-container-low": "#f6f3ee",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "outline-variant": "#e1bfbc",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "on-tertiary-fixed": "#1c1c18",
+                    "on-tertiary-container": "#fffbff",
+                    "on-surface-variant": "#59413f",
+                    "inverse-on-surface": "#f3f0eb",
+                    "surface-container-highest": "#e5e2dd",
+                    "tertiary-fixed": "#e6e2dc",
+                    "on-background": "#1c1c19",
+                    "secondary": "#5f5e5e",
+                    "primary-fixed": "#ffdad7",
+                    "on-tertiary-fixed-variant": "#484743",
+                    "primary": "#ae282c",
+                    "secondary-fixed": "#e4e2e1",
+                    "on-primary-fixed": "#410005",
+                    "tertiary": "#5e5c58",
+                    "surface-dim": "#dcdad5",
+                    "outline": "#8d706e",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#474747",
+                    "primary-container": "#d04141",
+                    "surface-tint": "#b12a2e",
+                    "inverse-surface": "#31302d",
+                    "surface-container-high": "#ebe8e3",
+                    "secondary-container": "#e4e2e1",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#8f0d19",
+                    "background": "#fcf9f4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "32px",
+                    "unit": "4px",
+                    "margin-safe": "24px",
+                    "sm": "16px",
+                    "lg": "48px",
+                    "xs": "8px",
+                    "xl": "80px"
+            },
+            "fontFamily": {
+                    "body-lg": ["EB Garamond"],
+                    "display-lg": ["EB Garamond"],
+                    "body-sm": ["EB Garamond"],
+                    "label-xl": ["Archivo Narrow"],
+                    "label-md": ["Archivo Narrow"],
+                    "headline-md": ["EB Garamond"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "label-sm": ["Archivo Narrow"]
+            },
+            "fontSize": {
+                    "body-lg": ["20px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-sm": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-xl": ["18px", {"lineHeight": "1", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "1", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fcf9f4;
+            background-image: url("https://www.transparenttextures.com/patterns/handmade-paper.png");
+            overflow: hidden;
+            min-height: 100dvh;
+        }
+
+        .ink-blot {
+            filter: contrast(200%) brightness(50%);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .horizontal-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            height: calc(100vh - 120px); /* Adjusted for header-only top */
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .reader-page {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            column-count: 1;
+            column-gap: 48px;
+            padding: 0 24px; /* Reduced side padding for mobile feel */
+        }
+
+        @media (min-width: 768px) {
+            .reader-page {
+                column-count: 2;
+                padding: 0 80px;
+            }
+        }
+
+        .brute-border {
+            border: 2px solid #1c1c19;
+            box-shadow: 4px 4px 0px 0px #1c1c19;
+        }
+
+        .brute-border:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #1c1c19;
+        }
+
+        .floating-nav {
+            position: fixed;
+            top: 60%;
+            transform: translateY(-50%);
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-surface">
+<!-- Margins Imperfections -->
+<div class="fixed top-12 -left-8 w-32 h-32 ink-blot z-0" style="background-image: url('https://www.transparenttextures.com/patterns/60-lines.png');"></div>
+<div class="fixed bottom-24 -right-12 w-48 h-48 ink-blot z-0 rotate-45" style="background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');"></div>
+<!-- Header Section: Title & Back only -->
+<header class="relative z-20 px-margin-safe py-sm border-b-2 border-on-surface bg-surface/80 backdrop-blur-sm flex items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center border-2 border-on-surface brute-border bg-surface-variant" onclick="window.history.back()">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-none">Les Ruines Circulaires</h1>
+</header>
+<!-- Reader Canvas -->
+<main class="relative z-10 h-full overflow-hidden">
+<!-- Floating Navigation Buttons -->
+<button class="floating-nav left-4 w-12 h-12 flex items-center justify-center bg-on-surface text-surface brute-border transition-all opacity-50 pointer-events-none" id="prev-btn" style="opacity: 0.3; pointer-events: none;">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="floating-nav right-4 w-12 h-12 flex items-center justify-center bg-on-surface text-surface brute-border transition-all" id="next-btn" style="opacity: 1; pointer-events: auto;">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<div class="horizontal-scroll-container px-0" id="reader-scroll">
+<!-- Page 1 -->
+<section class="reader-page">
+<!-- Full Bleed Image at start of Page 1 -->
+<div class="w-full mb-md"><img alt="The Echoes of Alexandria" class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7XQiclzXCdS3NWW48xtojKleNDDqEY8Ro7nuAAut1AAqHd75nSMG_tf1CDwpsUfKVVPUHt1WJtfl7xHDNgVW6zDZyxErgbxBEFbXFNrkCqR6cIcOMM2t62pzkJXHlxsm-rm1kyUS7-jB5EB-NEpwAZWO1yEHGRh4Ko8K0gs678xXfvjPkUC3F763sPvUafvFsCGw5M2Bqe4IlFO1M7AjSCHiN-J35RALUP_lHlVTay3iLy7SUGi37KA">
+<div class="mt-xs text-center"><p class="font-label-sm text-label-sm text-on-surface-variant/80 uppercase tracking-widest font-medium">Elara Vance</p><p class="font-label-sm text-label-sm text-on-surface-variant/80 uppercase tracking-widest font-medium">The Lost Archives: Exploring the Legacy</p></div></div>
+<!-- Tags moved here -->
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="font-label-md text-label-md border-2 border-on-surface px-3 py-1 bg-surface-container-high italic">Métaphysique</span>
+<span class="font-label-md text-label-md border-2 border-on-surface px-3 py-1 bg-surface-container-high italic">Rêve</span>
+<span class="font-label-md text-label-md border-2 border-on-surface px-3 py-1 bg-surface-container-high italic">Circularité</span>
+</div>
+<p class="mb-md first-letter:text-6xl first-letter:font-display-lg first-letter:mr-2 first-letter:float-left first-letter:text-primary">
+                Nul ne le vit débarquer dans l'unanime nuit, nul ne vit le canot de bambou s'enfoncer dans la boue sacrée, mais quelques jours plus tard, nul n'ignorait que l'homme taciturne venait du Sud et que sa patrie était l'un des villages infinis qui sont en amont, sur le flanc escarpé de la montagne, où la langue zende n'est pas contaminée par le grec et où la lèpre est rare.
+            </p>
+<p class="mb-md">
+                Le fait est que l'homme gris baisa la boue, gravit la berge sans écarter (sans doute sans les sentir) les roseaux qui lui déchiraient les chairs et se traîna, hébété et ensanglanté, jusqu'à l'enceinte circulaire que couronne un tigre ou un cheval de pierre, qui eut jadis la couleur du feu et maintenant celle de la cendre. Cet enclos est un temple que les incendies anciens dévorèrent, que la jungle paludéenne a profané et dont le dieu n'est plus honoré par les hommes.
+            </p>
+<p class="mb-md">
+                L'étranger s'allongea au pied de la statue. Le soleil haut le réveilla. Il constata sans étonnement que ses blessures s'étaient cicatrisées ; il ferma ses yeux pâles et dormit, non par faiblesse de la chair mais par détermination de la volonté.
+            </p>
+</section>
+<!-- Page 2 -->
+<section class="reader-page pt-lg">
+<p class="mb-md">
+                Le dessein qui le guidait n'était pas impossible, bien qu'il fût surnaturel. Il voulait rêver un homme : il voulait le rêver avec une intégrité minutieuse et l'imposer à la réalité. Ce projet magique avait épuisé l'espace entier de son âme ; si quelqu'un lui avait demandé son propre nom ou n'importe quel trait de sa vie antérieure, he n'aurait pas su répondre.
+            </p>
+<p class="mb-md">
+                Il avait besoin du temple inhabité et rompu, parce qu'il était un minimum de monde visible ; la proximité des bûcherons l'effrayait aussi, car ceux-ci se chargent de subvenir à ses besoins frugaux. Le riz et les fruits de leur tribut étaient une nourriture suffisante pour son corps, voué à la seule tâche de dormir et de rêver.
+            </p>
+<p class="mb-md italic text-on-surface-variant/80 border-l-4 border-primary pl-4 ml-2">
+                « L'âme est une série de rêves qui s'entrecroisent, un labyrinthe de miroirs où le temps s'abolit dans la contemplation du Créateur. »
+            </p>
+</section>
+<!-- Page 3 -->
+<section class="reader-page pt-lg">
+<p class="mb-md">
+                Il cherchait une âme qui fût capable de participer à l'univers. Après neuf ou dix nuits, il comprit avec une certaine amertume qu'il ne pouvait rien attendre de ces élèves qui acceptaient passivement sa doctrine, mais bien de ceux qui risquaient parfois une contradiction raisonnable.
+            </p>
+<p class="mb-md">
+                Dans une de ces après-midi lucides, il congédia pour toujours le vaste collège illusoire et ne garda qu'un seul élève. C'était un jeune homme taciturne, mélancolique, parfois rétif, aux traits effilés qui rappelaient ceux de son rêveur.
+            </p>
+<div class="mt-xl flex justify-center">
+<div class="w-16 h-[2px] bg-outline-variant"></div>
+</div>
+</section>
+</div>
+<!-- Page Indicator repositioned to bottom center -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-30">
+<span class="font-label-md text-label-md bg-surface/90 px-3 py-1 border border-on-surface/20 rounded-full" id="page-indicator">01 / 03</span>
+</div>
+</main>
+<script>
+    const container = document.getElementById('reader-scroll');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const indicator = document.getElementById('page-indicator');
+
+    function updateUI() {
+        const index = Math.round(container.scrollLeft / container.clientWidth);
+        const total = Math.round(container.scrollWidth / container.clientWidth);
+        indicator.innerText = `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+        
+        // Update button states
+        if (index === 0) {
+            prevBtn.style.opacity = '0.3';
+            prevBtn.style.pointerEvents = 'none';
+        } else {
+            prevBtn.style.opacity = '1';
+            prevBtn.style.pointerEvents = 'auto';
+        }
+
+        if (index >= total - 1) {
+            nextBtn.style.opacity = '0.3';
+            nextBtn.style.pointerEvents = 'none';
+        } else {
+            nextBtn.style.opacity = '1';
+            nextBtn.style.pointerEvents = 'auto';
+        }
+    }
+
+    nextBtn.addEventListener('click', () => {
+        container.scrollBy({ left: container.clientWidth, behavior: 'smooth' });
+    });
+
+    prevBtn.addEventListener('click', () => {
+        container.scrollBy({ left: -container.clientWidth, behavior: 'smooth' });
+    });
+
+    container.addEventListener('scroll', updateUI);
+    window.addEventListener('resize', updateUI);
+    
+    // Initial state
+    updateUI();
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextBtn.click();
+        if (e.key === 'ArrowLeft') prevBtn.click();
+    });
+</script>
+
+
+
+
+</body></html>

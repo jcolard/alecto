@@ -1,0 +1,352 @@
+<!DOCTYPE html><html class="h-full" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&amp;family=Archivo+Narrow:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        /* Custom scrollbar for neo-brutalist look */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+        }
+
+        .paper-texture {
+            background-color: #fcf9f4;
+            background-image: radial-gradient(#dcdad5 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+
+        .asymmetric-tag {
+            transition: transform 0.1s ease-in-out;
+        }
+        .asymmetric-tag:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        /* Hide scrollbars but keep functionality */
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .carousel-item {
+            scroll-snap-align: start;
+            flex: 0 0 auto;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f0ede8",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1c1c19",
+                        "surface-variant": "#e5e2dd",
+                        "on-primary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#656464",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#777470",
+                        "primary-fixed-dim": "#ffb3ae",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fcf9f4",
+                        "tertiary-fixed-dim": "#cac6c1",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#ffb3ae",
+                        "surface": "#fcf9f4",
+                        "surface-container-low": "#f6f3ee",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "outline-variant": "#e1bfbc",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "on-tertiary-container": "#fffbff",
+                        "on-surface-variant": "#59413f",
+                        "inverse-on-surface": "#f3f0eb",
+                        "surface-container-highest": "#e5e2dd",
+                        "tertiary-fixed": "#e6e2dc",
+                        "on-background": "#1c1c19",
+                        "secondary": "#5f5e5e",
+                        "primary-fixed": "#ffdad7",
+                        "on-tertiary-fixed-variant": "#484743",
+                        "primary": "#ae282c",
+                        "secondary-fixed": "#e4e2e1",
+                        "on-primary-fixed": "#410005",
+                        "tertiary": "#5e5c58",
+                        "surface-dim": "#dcdad5",
+                        "outline": "#8d706e",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#474747",
+                        "primary-container": "#d04141",
+                        "surface-tint": "#b12a2e",
+                        "inverse-surface": "#31302d",
+                        "surface-container-high": "#ebe8e3",
+                        "secondary-container": "#e4e2e1",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#8f0d19",
+                        "background": "#fcf9f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "32px",
+                        "unit": "4px",
+                        "margin-safe": "24px",
+                        "sm": "16px",
+                        "lg": "48px",
+                        "xs": "8px",
+                        "xl": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "body-sm": ["EB Garamond"],
+                        "label-xl": ["Archivo Narrow"],
+                        "label-md": ["Archivo Narrow"],
+                        "headline-md": ["EB Garamond"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "label-sm": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["20px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-sm": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-xl": ["18px", {"lineHeight": "1", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "1", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-lg h-full overflow-hidden flex flex-col paper-texture">
+<div class="grain-overlay" style="background-position: 10.5641px 19.4778px;"></div>
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-surface-dim border-b-2 border-on-surface dark:border-outline-variant shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] flex justify-between items-center w-full px-margin-safe py-sm z-50">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary hover:bg-surface-variant hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none p-1">menu</button>
+<h1 class="font-display-lg text-display-lg-mobile font-bold tracking-tighter text-primary uppercase">ALEKTO</h1>
+</div>
+<div class="flex items-center gap-sm">
+<div class="hidden md:flex border-2 border-on-surface bg-surface-container px-sm py-1 items-center gap-2 shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 font-label-md text-label-md p-0 uppercase" placeholder="RECHERCHER..." type="text">
+</div>
+<button class="material-symbols-outlined text-primary md:hidden">search</button>
+
+</div>
+</header>
+<main class="flex-grow flex flex-col overflow-hidden px-margin-safe pt-md">
+<!-- Archipelago Section -->
+<section class="mb-lg">
+<div class="flex flex-wrap items-start justify-center gap-x-xs gap-y-sm max-w-4xl mx-auto relative">
+<!-- Tag 1 -->
+<button class="asymmetric-tag bg-surface border-2 border-on-surface px-sm py-1 font-label-xl text-label-xl uppercase shadow-[4px_4px_0px_0px_rgba(174,40,44,1)] -rotate-1 self-start" style="transform: rotate(2.04deg);">
+                    Mythologie
+                </button>
+<!-- Tag 2 -->
+<button class="asymmetric-tag bg-primary text-on-primary border-2 border-on-surface px-md py-2 font-label-xl text-label-xl uppercase shadow-[6px_6px_0px_0px_rgba(28,28,25,1)] rotate-2 translate-y-4" style="transform: rotate(2.55deg);">
+                    Aventure
+                </button>
+<!-- Tag 3 -->
+<button class="asymmetric-tag bg-surface border-2 border-on-surface px-sm py-1 font-label-xl text-label-xl uppercase shadow-[3px_3px_0px_0px_rgba(28,28,25,1)] -translate-y-2" style="transform: rotate(-0.56deg);">
+                    Poésie
+                </button>
+<!-- Tag 4 -->
+<button class="asymmetric-tag bg-surface-variant border-2 border-on-surface px-md py-1 font-label-xl text-label-xl uppercase shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] rotate-1 translate-x-2" style="transform: rotate(-2.98deg);">
+                    Science
+                </button>
+<!-- Tag 5 -->
+<button class="asymmetric-tag bg-surface border-2 border-on-surface px-sm py-1 font-label-xl text-label-xl uppercase shadow-[5px_5px_0px_0px_rgba(174,40,44,1)] -rotate-2" style="transform: rotate(-1.38deg);">
+                    Philosophie
+                </button>
+<!-- Tag 6 -->
+<button class="asymmetric-tag bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface px-sm py-1 font-label-xl text-label-xl uppercase shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] translate-y-6" style="transform: rotate(1.56deg);">
+                    Histoire
+                </button>
+</div>
+</section>
+<!-- Dynamic Carousels Area -->
+<div class="flex-grow overflow-y-auto no-scrollbar pb-xl">
+<!-- Section: AUDIO -->
+<div class="group relative mb-lg">
+<div class="flex justify-between items-end mb-sm">
+<h2 class="font-display-lg text-display-lg-mobile text-primary tracking-tight italic">Audio</h2>
+
+</div>
+<div class="relative">
+<div class="carousel-container gap-md pb-xs no-scrollbar" id="carousel-audio">
+<!-- Item 1 -->
+<div class="carousel-item w-48 md:w-64">
+<div class="relative border-2 border-on-surface shadow-[6px_6px_0px_0px_rgba(28,28,25,1)] bg-surface-container overflow-hidden group/item cursor-pointer">
+<div class="aspect-[4/5] bg-cover bg-center grayscale contrast-125 transition-all group-hover/item:grayscale-0" data-alt="A gritty, cinematic close-up of a weathered vintage reel-to-reel tape recorder in a dim, archival library. The lighting is high-contrast, casting deep shadows on the antique paper around it. The overall aesthetic is neo-brutalist with a rich earthy palette and subtle red accents, emphasizing tactile textures and history." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCTBFwqWUejd1oEZqq5itqgreO5qQDtzB0S2MAu4CoRPBY5CcSZ3sVYFJ6_cKXD-CC9ZqbrZ5fgdBTzNCVbt4j0XZvYs-p6q4IQsedJGdvZVXA3eo7hC0pbcnhJpQnrTCkP1C_Cl5nf8q6oqgX96xPllwtQusG5FIr6OS_Ty2xYD2-vZ33Y0Yj-YK4-JNn6drNQkfDYkupEJArYBjoU8VNl1GuzyzaDnlRYFHnTOQG9SlpmcY64EnrO4g')"></div>
+<div class="absolute inset-0 border-[12px] border-transparent group-hover/item:border-primary/20 transition-all pointer-events-none"></div>
+<div class="absolute bottom-2 right-2 bg-on-surface text-surface px-2 py-1 font-label-sm text-label-sm uppercase">12:45</div>
+</div>
+<h3 class="mt-xs font-label-xl text-label-xl uppercase leading-none">Les Chants d'Hadès</h3>
+<p class="font-body-sm text-body-sm italic opacity-70">24 Oct. 2023</p>
+</div>
+<!-- Item 2 -->
+<div class="carousel-item w-48 md:w-64">
+<div class="relative border-2 border-on-surface shadow-[6px_6px_0px_0px_rgba(28,28,25,1)] bg-surface-container overflow-hidden group/item cursor-pointer">
+<div class="aspect-[4/5] bg-cover bg-center grayscale contrast-125 transition-all group-hover/item:grayscale-0" data-alt="A textured, grainy portrait of an ancient bronze mask resting on a bed of dark, raw clay. Soft dramatic side-lighting highlights the weathered surfaces and cracks. The design style is tactile and physical, incorporating an archival, dark academic atmosphere with deep earth tones and a singular brick red shadow." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGDcgnMTXHOc0Lu5rhM3RSR4kNqSsb5pHY6hIw7OrI6G59ZFVWWYKHkfdCUv5eeY30P4gj4qmUYnu4PNSbppffH-02X6W1qkhl3MNLi9ilvLuaTbEFogiKXxF3qA23KepQ669aS5KBtt8kldCoX6QV2XJMPTh23AqETZzwaibY6CL7ydcOem3stiD6wo8KSx-nNbnET0iLbWfqkz58byb2Me-rG8NF7xaucqU_C4HHwNaekApi0nBlZA')"></div>
+<div class="absolute bottom-2 right-2 bg-on-surface text-surface px-2 py-1 font-label-sm text-label-sm uppercase">08:20</div>
+</div>
+<h3 class="mt-xs font-label-xl text-label-xl uppercase leading-none">Echo des Grottes</h3>
+<p class="font-body-sm text-body-sm italic opacity-70">18 Oct. 2023</p>
+</div>
+<!-- Item 3 -->
+<div class="carousel-item w-48 md:w-64">
+<div class="relative border-2 border-on-surface shadow-[6px_6px_0px_0px_rgba(28,28,25,1)] bg-surface-container overflow-hidden group/item cursor-pointer">
+<div class="aspect-[4/5] bg-cover bg-center grayscale contrast-125 transition-all group-hover/item:grayscale-0" data-alt="An atmospheric macro shot of a single drop of crimson ink hitting an aged, ivory-colored piece of parchment paper. The paper has frayed, burnt edges and a visible pulp texture. The scene is shot with a shallow depth of field, focused on the vibrant red spreading across the textured ivory background in a neo-brutalist style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC3xPePj4uQpyhYaD8O-PG9af4-_e5kT2LbQadkmeerrrivwOztRTZQMIcT_ylMaJ_6jWhWr3sx4KCF4oSea-sSqE6REsG3lyv9aTM65aDA5SXPovu6daUGutP2tmdUoW23MojSqeQJ3IGo7RykVkmYwWDF2wS9AGfuiGPPXMvabFSvKXl_HKy-sdUcIZ2zPGeEfxuCFksoqQRgoEWe7gRjTAOXzFs-_HkTSUflY7Qr-uFQre9yvdVFSQ')"></div>
+<div class="absolute bottom-2 right-2 bg-on-surface text-surface px-2 py-1 font-label-sm text-label-sm uppercase">22:15</div>
+</div>
+<h3 class="mt-xs font-label-xl text-label-xl uppercase leading-none">Manifeste Rouge</h3>
+<p class="font-body-sm text-body-sm italic opacity-70">12 Oct. 2023</p>
+</div>
+<!-- Item 4 -->
+<div class="carousel-item w-48 md:w-64">
+<div class="relative border-2 border-on-surface shadow-[6px_6px_0px_0px_rgba(28,28,25,1)] bg-surface-container overflow-hidden group/item cursor-pointer">
+<div class="aspect-[4/5] bg-cover bg-center grayscale contrast-125 transition-all group-hover/item:grayscale-0" data-alt="A striking minimalist composition featuring an arrangement of blackened, charred wooden sticks on a flat ecru clay surface. A single diagonal beam of golden afternoon light cuts across the frame. The overall feel is heavy and permanent, reflecting a curated, intellectually stimulating archive environment with a raw, physical texture." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDK5Qs68d3CpWJpb9sAikfgRQicxSQyAO8Da89zwrBl9zT7oUwV4vGJhXGC4w4rfnU_PemejvOCHPTHTpM1YXGo8EbEF0n-DZjTGMrwWtY_jSo8TIfCKmLuFT2Eaj_VxRto1m6vddWZWaYukMLybHk0aG23xuWhgRReXwACJ1R18wAD4Lmm4BDV1wMWoU2JFxBLnTR5IP7UBybGjl_hoRZG2v5_aR2FMdAHH7MgqlNbtnq_FHsRltSuFQ')"></div>
+</div>
+<h3 class="mt-xs font-label-xl text-label-xl uppercase leading-none">Onde de Choc</h3>
+<p class="font-body-sm text-body-sm italic opacity-70">05 Oct. 2023</p>
+</div>
+</div>
+<!-- Brute Arrows -->
+<button class="absolute left-[-20px] top-1/2 -translate-y-1/2 bg-on-surface text-surface p-2 shadow-[4px_4px_0px_0px_rgba(174,40,44,1)] hover:bg-primary transition-colors hidden md:block" onclick="document.getElementById('carousel-audio').scrollBy({left: -300, behavior: 'smooth'})">
+<span class="material-symbols-outlined text-3xl">arrow_back</span>
+</button>
+<button class="absolute right-[-20px] top-1/2 -translate-y-1/2 bg-on-surface text-surface p-2 shadow-[4px_4px_0px_0px_rgba(174,40,44,1)] hover:bg-primary transition-colors hidden md:block" onclick="document.getElementById('carousel-audio').scrollBy({left: 300, behavior: 'smooth'})">
+<span class="material-symbols-outlined text-3xl">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Section: CONTE -->
+<div class="group relative mb-lg">
+<div class="flex justify-between items-end mb-sm">
+<h2 class="font-display-lg text-display-lg-mobile text-on-surface tracking-tight italic">Conte</h2>
+
+</div>
+<div class="relative">
+<div class="carousel-container gap-md pb-xs no-scrollbar" id="carousel-conte">
+<!-- Item 1 -->
+<div class="carousel-item w-64 md:w-80">
+<div class="relative border-2 border-on-surface shadow-[6px_6px_0px_0px_rgba(28,28,25,1)] bg-surface-container-high overflow-hidden cursor-pointer">
+<div class="aspect-[16/9] bg-cover bg-center contrast-110" data-alt="A highly detailed illustration of a mythical creature resembling a giant owl with antlers, emerging from a dense, foggy forest of anthracite-colored trees. The lighting is ethereal and moody, with a pale light-mode sun filtering through the mist. The style is reminiscent of a misprinted lithograph with gritty textures and sharp, hand-drawn lines." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBNEkXts7Hgb_-j2qqwfMbyDAdFsszzpltcHQtS5LL2oV7lSz0UHBBO5szlxz2K6Hhfg-DBJrB9KQyQO_P9EJwa8HEcKzTFQIkLSY05v13pzF8_NErM2XI_CiDii74nGMPPC-oPcb9-xVFeDetDzopD55XM_syFuu8eawV5biRG_8QuxpZ6FQRiRQUt-nQJV7wMfIUQQd7IEdMmUa9Dyq7XDWyfhmPTtcgmaW47VNoCyORaGT42bgsT9g')"></div>
+</div>
+<h3 class="mt-xs font-label-xl text-label-xl uppercase">Le Veilleur des Cimes</h3>
+
+</div>
+<!-- Item 2 -->
+<div class="carousel-item w-64 md:w-80">
+<div class="relative border-2 border-on-surface shadow-[6px_6px_0px_0px_rgba(174,40,44,1)] bg-surface-container-high overflow-hidden cursor-pointer rotate-1">
+<div class="aspect-[16/9] bg-cover bg-center contrast-110" data-alt="A visceral digital painting of a desert landscape at twilight, featuring massive, jagged rock formations that look like giant shards of broken pottery. The sky is a deep, dusty ecru with a single streak of brick red light. The entire image has a heavy film grain overlay and distressed edges, giving it a tangible, archival quality." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9kIm3Xmv5noM7jymIJ4U0klRM0YShoIirCsqkFnlpW-CUCtvPCRw3Yk5RGyOTcKV_IUa8xue1LMyRvNSyHVxkVdEUzkse5306HLVAVjkmtj6iuHKbZ2LAojh17vUOUN4YpB8WqyWd8OVD7nhKzrVWD2YPLX-AIp2N1r53bPuSy8Ifa4cRbu7WlRxo-3Icc5_gxTTCNP_Yoxr3N44EloBnQZisRZ6dBonnhwIP4Awi92MMn5ImWC1SJA')"></div>
+</div>
+<h3 class="mt-xs font-label-xl text-label-xl uppercase">Sable et Sang</h3>
+
+</div>
+<!-- Item 3 -->
+<div class="carousel-item w-64 md:w-80">
+<div class="relative border-2 border-on-surface shadow-[6px_6px_0px_0px_rgba(28,28,25,1)] bg-surface-container-high overflow-hidden cursor-pointer">
+<div class="aspect-[16/9] bg-cover bg-center contrast-110" data-alt="A moody, high-contrast image of an ancient limestone sculpture of a hand holding a small flame, set against a dark anthracite backdrop. The flame is represented as a solid, vibrant red graphic element, creating a stark contrast between the physical texture of the stone and the clean digital red accent." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBcU6SbJaPLFYzvwtfLnIBr3X5oYDWvxL29_LcQeRuTkscHmrX6Wb1CHmS8cTHDci0kyWn6UYwzn53JdwTXmgFslieUgGfxH420n8BmtVYjYcJElmvOnudr_lbr5fgv-iyD4dqHezMSmDiL_yZPmFDzJLSMD4JCDS-8Wp_X29QTfDZ2Xy9xdskQNAxfvk37uy8FdjhVG3Is8QxBGKzWG37poNMNXVxvWh6YcJnNsPxyyx-QT8NUxnQRDA')"></div>
+</div>
+<h3 class="mt-xs font-label-xl text-label-xl uppercase">Le Don du Feu</h3>
+
+</div>
+</div>
+</div>
+</div>
+<!-- Section: ARTICLE -->
+<div class="group relative mb-xl">
+<div class="flex justify-between items-end mb-sm">
+<h2 class="font-display-lg text-display-lg-mobile text-primary tracking-tight italic">Article</h2>
+
+</div>
+<div class="relative">
+<div class="carousel-container gap-md pb-xs no-scrollbar" id="carousel-article">
+<!-- Item 1 -->
+<div class="carousel-item w-full md:w-[450px]">
+<div class="relative border-2 border-on-surface shadow-[8px_8px_0px_0px_rgba(28,28,25,1)] bg-surface flex flex-col md:flex-row h-full overflow-hidden">
+<div class="w-full md:w-1/3 bg-cover bg-center grayscale" data-alt="A close-up shot of a stack of old, yellowed newspapers with bold, black headlines. One corner of the stack is slightly charred and curled. The background is a rough, textured wood surface in deep brown tones. The aesthetic is tactile and archival, focusing on the weight and history of physical print in a neo-brutalist context." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBIj-4VrDrAd-UOrGtbqNj722dqVoZaR9TShgYvkDh3JJYQqOzrfkKt4gNEukE0mMTJklN2ShRy9gBdMAre5pG0Lr1nyBDg8tOd8mX_86k7bhV8qCADcauRJi2EOixNLo1-NPIfJQu5yRadUV54ScPwkpOXcpjqqjD-lniRTIqDbQfEHGxHm0bI6lp4GuJ_4iP_j5aMU6H-mD-Te2azEzg-9Yw-66B9KbcV1nwP23dAMewIFpxLmZVWNw')"></div>
+<div class="p-sm flex-grow">
+<span class="bg-primary text-on-primary px-2 py-0.5 font-label-sm text-label-sm uppercase mb-2 inline-block">HISTOIRE</span>
+<h3 class="font-label-xl text-label-xl uppercase mb-1">L'Obsolescence de la Mémoire Numérique</h3>
+<p class="font-body-sm text-body-sm line-clamp-2">Pourquoi nous devons revenir à la pierre et au papier pour sauver notre histoire.</p>
+<div class="mt-sm border-t border-on-surface pt-xs flex justify-between items-center">
+<span class="font-label-sm text-label-sm uppercase">24 Oct. 2023 • 14:30</span>
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="carousel-item w-full md:w-[450px]">
+<div class="relative border-2 border-on-surface shadow-[8px_8px_0px_0px_rgba(28,28,25,1)] bg-surface flex flex-col md:flex-row h-full overflow-hidden -rotate-1">
+<div class="w-full md:w-1/3 bg-cover bg-center grayscale" data-alt="An abstract, architectural composition of concrete pillars and sharp shadows in a minimalist courtyard. A single, small red bird is perched on a ledge, providing the only pop of color. The mood is quiet and contemplative, captured in a bright, modern light-mode palette with a heavy emphasis on geometric form and physical presence." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBAuCQCVyGd-l1Uh0DencutzZ6KomLH_hjvU-lY6OdXUj6LwcHsCqLmrhsMmn3b17LJkBmR9IIVXi8pagPfZaSb6tnnSJxSI8mlGevOjRZqfdVjuOVZnFrRuniWuDqBdAm5Npv5m3IPsvuNNNait5RSYpJKM5QW4cjEt3F-qMRZf1_pPsRN1hCgPQROohJrJVhH3_eoEZCvwitWGOiZ6_NW3Xb_nLt9QdY4tE1mOEe8k3mQYj13waFA4g')"></div>
+<div class="p-sm flex-grow">
+<span class="bg-on-surface text-surface px-2 py-0.5 font-label-sm text-label-sm uppercase mb-2 inline-block">Critique</span>
+<h3 class="font-label-xl text-label-xl uppercase mb-1">Architecture du Silence</h3>
+<p class="font-body-sm text-body-sm line-clamp-2">Analyse du brutalisme moderne et de son impact sur la psyché urbaine.</p>
+<div class="mt-sm border-t border-on-surface pt-xs flex justify-between items-center">
+<span class="font-label-sm text-label-sm uppercase">10 min read</span>
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+
+<!-- Interactive script for simple carousel behaviors or sounds -->
+<script>
+        // Micro-interaction for tags: random rotation on load
+        document.querySelectorAll('.asymmetric-tag').forEach(tag => {
+            const randomRot = (Math.random() * 6 - 3).toFixed(2);
+            tag.style.transform = `rotate(${randomRot}deg)`;
+        });
+
+        // Horizontal scroll prevention on main body
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaX !== 0) {
+                // allow horizontal scroll inside carousels only
+            }
+        });
+
+        // Simple parallax effect for grain overlay
+        window.addEventListener('mousemove', (e) => {
+            const grain = document.querySelector('.grain-overlay');
+            const x = (e.clientX / window.innerWidth) * 20;
+            const y = (e.clientY / window.innerHeight) * 20;
+            grain.style.backgroundPosition = `${x}px ${y}px`;
+        });
+    </script>
+
+
+</body></html>

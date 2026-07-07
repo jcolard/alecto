@@ -1,0 +1,21 @@
+{
+  "name": "Alekto",
+  "short_name": "Alekto",
+  "description": "L'application brutaliste de vos contenus narratifs préférés.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1c1c19",
+  "theme_color": "#ae282c",
+  "icons": [
+    {
+      "src": "./alecto192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./alecto512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

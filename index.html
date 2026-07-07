@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="h-full" lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALEKTO - Contenus Narratifs Brutalistes</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ae282c">
+    <!-- Tailwind & Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#fcf9f4",
+                        "surface-dim": "#dcdad5",
+                        "surface-bright": "#fcf9f4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f6f3ee",
+                        "surface-container": "#f0ede8",
+                        "surface-container-high": "#ebe8e3",
+                        "surface-container-highest": "#e5e2dd",
+                        "on-surface": "#1c1c19",
+                        "on-surface-variant": "#59413f",
+                        "inverse-surface": "#31302d",
+                        "inverse-on-surface": "#f3f0eb",
+                        "outline": "#8d706e",
+                        "outline-variant": "#e1bfbc",
+                        "primary": "#ae282c",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#d04141",
+                        "on-primary-container": "#fffbff",
+                        "secondary": "#5f5e5e",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#5e5c58",
+                        "tertiary-fixed": "#e6e2dc",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "background": "#fcf9f4"
+                    },
+                    spacing: {
+                        "unit": "4px", "xs": "8px", "sm": "16px", "md": "32px", "lg": "48px", "xl": "80px", "margin-safe": "24px"
+                    },
+                    fontFamily: {
+                        "display-lg": ["EB Garamond", "serif"],
+                        "body-lg": ["EB Garamond", "serif"],
+                        "label-xl": ["Archivo Narrow", "sans-serif"],
+                        "label-md": ["Archivo Narrow", "sans-serif"],
+                        "label-sm": ["Archivo Narrow", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-lg h-full flex flex-col selection:bg-primary selection:text-on-primary">
+    <div id="app" class="relative z-10 w-full h-full flex flex-col overflow-hidden page-load-animation">
+        
+        <!-- VIEW: GENERAL -->
+        <main id="view-general" class="flex-grow flex flex-col overflow-hidden view active">
+            <!-- Header -->
+            <header class="bg-surface border-b-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] flex justify-between items-center w-full px-margin-safe py-sm z-50">
+                <div id="logo-title-container" class="flex items-center gap-sm cursor-pointer select-none">
+                    <img src="alecto.png" alt="Alecto Logo" class="h-14 md:h-20 w-auto object-contain">
+                    <h1 class="font-display-lg text-4xl md:text-6xl font-bold tracking-tighter text-primary uppercase">ALEKTO</h1>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <div class="relative flex">
+                        <button id="search-btn" class="border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] bg-surface-container px-4 py-2 flex items-center justify-center text-primary font-label-md font-bold uppercase hover:bg-surface-variant select-none active:translate-y-[2px] active:translate-x-[2px] active:shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] transition-all">
+                            <span class="material-symbols-outlined">filter_list</span>
+                        </button>
+                        <!-- Dropdown tags menu -->
+                        <div id="tags-dropdown" class="hidden absolute right-0 top-full mt-2 bg-surface border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] p-sm z-50 flex flex-wrap gap-xs max-w-xs md:max-w-md">
+                            <!-- Tags injected dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="flex-grow flex flex-col overflow-hidden pt-md">
+                
+                <!-- Carousels Section -->
+                <div id="carousels-container" class="flex-grow overflow-y-auto no-scrollbar pb-xl relative z-10"></div>
+            </div>
+        </main>
+
+        <!-- VIEW: DETAIL -->
+        <main id="view-detail" class="view hidden absolute inset-0 bg-surface z-40 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header id="detail-header-nav" class="relative z-20 px-margin-safe py-sm border-b-2 border-on-surface bg-surface/80 backdrop-blur-sm flex items-center gap-sm">
+                <button id="btn-back" class="w-10 h-10 flex items-center justify-center border-2 border-on-surface brute-border bg-surface-variant transition-all text-on-surface">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <h1 id="detail-title" class="font-display-lg text-3xl md:text-5xl leading-none"></h1>
+            </header>
+            
+            <div id="detail-content" class="relative z-10 h-full overflow-hidden flex flex-col w-full">
+                <!-- Detail content injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Persistent Floating Player -->
+    <div id="floating-player" class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] max-w-lg bg-surface border-2 border-on-surface shadow-[8px_8px_0px_0px_rgba(28,28,25,1)] z-50 flex items-center p-2 gap-3 transition-all duration-300 translate-y-48 opacity-0">
+        <div class="w-12 h-12 border-2 border-on-surface shrink-0 bg-surface-container overflow-hidden rounded-full">
+            <img id="floating-player-thumb" src="" class="w-full h-full object-cover shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
+        </div>
+        <div class="flex-grow flex flex-col overflow-hidden">
+            <h4 id="floating-player-title" class="font-label-xl text-md uppercase leading-none text-on-surface truncate"></h4>
+            <div id="floating-progress-container" class="h-2 w-full bg-surface-container border border-on-surface mt-1 cursor-pointer relative">
+                <div id="floating-progress-bar" class="h-full bg-primary" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+            <button id="floating-play-btn" class="w-10 h-10 bg-primary border-2 border-on-surface flex items-center justify-center text-on-primary shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+                <span id="floating-play-icon" class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+            </button>
+            <button id="floating-close-btn" class="w-8 h-8 bg-surface-variant border-2 border-on-surface flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+                <span class="material-symbols-outlined text-sm">close</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hidden audio element for custom player -->
+    <audio id="global-audio-player"></audio>
+
+    <!-- Cookie Modal -->
+    <div id="cookie-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-surface/90 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div class="bg-surface border-4 border-on-surface shadow-[8px_8px_0px_0px_rgba(28,28,25,1)] p-lg max-w-lg w-[90%] flex flex-col gap-md transform scale-95 transition-transform duration-300" id="cookie-modal-content">
+            <h2 class="font-display-lg text-3xl uppercase text-primary">Gestion des cookies</h2>
+            <p class="font-body-lg text-on-surface-variant">
+                Nous utilisons des cookies pour améliorer votre expérience, analyser notre trafic et vous proposer des contenus personnalisés. Vous pouvez choisir de les accepter ou de les refuser.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-sm mt-sm">
+                <button id="btn-accept-cookies" class="flex-1 bg-primary text-on-primary font-label-lg uppercase py-3 border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] hover:scale-105 active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">Accepter tout</button>
+                <button id="btn-refuse-cookies" class="flex-1 bg-surface text-on-surface font-label-lg uppercase py-3 border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] hover:bg-surface-variant active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">Refuser</button>
+            </div>
+            <button id="btn-close-cookies" class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-surface border-2 border-on-surface hover:bg-primary hover:text-on-primary transition-colors">
+                <span class="material-symbols-outlined text-sm">close</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- PWA Install Modal -->
+    <div id="pwa-modal" class="fixed inset-0 z-50 flex flex-col justify-end md:justify-center items-center bg-on-surface/80 hidden opacity-0 transition-opacity duration-300">
+        <div id="pwa-modal-content" class="bg-surface border-4 border-on-surface brutal-shadow w-full max-w-md p-xl mb-4 md:mb-0 transform translate-y-full md:translate-y-8 transition-transform duration-300">
+            <h3 class="font-display-lg text-3xl uppercase text-primary mb-md">Installer Alekto</h3>
+            <p class="font-body-lg text-lg text-on-surface-variant mb-lg leading-relaxed">
+                Gardez ALEKTO à portée de main ! Installez l'application sur votre appareil pour une expérience plein écran, plus rapide et toujours accessible.
+            </p>
+            <div class="flex flex-col gap-sm">
+                <button id="btn-install-pwa" class="w-full py-3 bg-primary text-on-primary font-label-xl text-xl uppercase border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all">
+                    Installer maintenant
+                </button>
+                <button id="btn-close-pwa" class="w-full py-3 bg-surface text-on-surface font-label-xl text-xl uppercase border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all">
+                    Peut-être plus tard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
