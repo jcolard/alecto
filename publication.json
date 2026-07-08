@@ -269,7 +269,7 @@
     "id": "bea74e6c",
     "datetime": "08/07/2026 15:25:41",
     "type": "LES GRANDES VOIX",
-    "titre": "LE CHAPERON ROUGE",
+    "titre": "Le chaperon rouge",
     "description_auteur": "Écrit et réalisé par : OLIVIER COHEN\n\nMusique : PIERRE CHOLLEY\n\nTitre : BABA YAGA\n\nLu par : ROLAND GIRAUD\n\nLabel/Collection : ALEATO - Les GRANDES VOIX",
     "fichier": "publication_Files_/bea74e6c.fichier.132623.mp3",
     "contenu": "",
@@ -291,11 +291,22 @@
     "id": "a193fe9a",
     "datetime": "08/07/2026 15:30:04",
     "type": "LES GRANDES VOIX",
-    "titre": "ARBE BLEUE",
+    "titre": "Barbe bleue",
     "description_auteur": "Écrit et réalisé par : OLIVIER COHEN\n\nMusique : PIERRE CHOLLEY\n\nTitre : BABA YAGA\n\nLu par : CECILE DE FRANCE\n\nLabel/Collection : ALEATO - Les GRANDES VOIX",
     "fichier": "publication_Files_/a193fe9a.fichier.133045.mp3",
     "contenu": "",
     "tags": [],
     "image_url": "https://drive.google.com/thumbnail?id=1zdQ23G08Y6NC8ELGu9KdTJKE7MXMDv91"
+  },
+  {
+    "id": "34cda922",
+    "datetime": "08/07/2026 15:43:11",
+    "type": "LES GRANDES VOIX",
+    "titre": "Hasel & Grethel",
+    "description_auteur": "Écrit et réalisé par : OLIVIER COHEN\n\nMusique : PIERRE CHOLLEY\n\nTitre : BABA YAGA\n\nLu par : ROBIN LENUCCI\n\nLabel/Collection : ALEATO - Les GRANDES VOIX",
+    "fichier": "publication_Files_/34cda922.fichier.134432.mp3",
+    "contenu": "",
+    "tags": [],
+    "image_url": "https://drive.google.com/thumbnail?id=13s_nZHeJs4CDHkQunBiTyGIqeQ0v7JTH"
   }
 ]
