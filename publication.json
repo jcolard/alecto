@@ -244,7 +244,7 @@
   {
     "id": "a97b7306",
     "datetime": "08/07/2026 15:19:50",
-    "type": "Audio",
+    "type": "LES GRANDES VOIX",
     "titre": "BABAYAGA",
     "description_auteur": "Écrit et réalisé par : OLIVIER COHEN\n\nMusique : PIERRE CHOLLEY\n\nTitre : BABA YAGA\n\nLu par : EMMANUELLE DEVOS\n\nLabel/Collection : ALEATO - Les GRANDES VOIX",
     "fichier": "publication_Files_/a97b7306.fichier.132101.mp3",
@@ -264,5 +264,16 @@
     "contenu": "",
     "tags": [],
     "image_url": "https://drive.google.com/thumbnail?id=1n5zfyjs2l0RvSL-0X9ORqOxMmpxuVCa1"
+  },
+  {
+    "id": "bea74e6c",
+    "datetime": "08/07/2026 15:25:41",
+    "type": "LES GRANDES VOIX",
+    "titre": "LE CHAPERON ROUGE",
+    "description_auteur": "Écrit et réalisé par : OLIVIER COHEN\n\nMusique : PIERRE CHOLLEY\n\nTitre : BABA YAGA\n\nLu par : ROLAND GIRAUD\n\nLabel/Collection : ALEATO - Les GRANDES VOIX",
+    "fichier": "publication_Files_/bea74e6c.fichier.132623.mp3",
+    "contenu": "",
+    "tags": [],
+    "image_url": "https://drive.google.com/thumbnail?id=1NXEtTXQ__ElP6YddXAMkEE1utbgF6jLj"
   }
 ]
