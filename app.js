@@ -427,7 +427,7 @@ function createHeroHeaderHtml(p) {
 
 function createAssociationBannerHtml(p) {
     const banner = document.createElement('div');
-    banner.className = 'w-full mb-xl cursor-pointer group px-margin-safe';
+    banner.className = 'w-full mb-md md:mb-lg cursor-pointer group px-0 md:px-margin-safe';
     
     const imgUrl = p.image_url || 'https://via.placeholder.com/800x400?text=Association';
     const rawExcerpt = p.description_auteur || '';
@@ -564,11 +564,11 @@ function renderCarousels() {
         if (pubs.length === 0) return;
 
         const wrapper = document.createElement('div');
-        wrapper.className = 'group relative mb-lg scroll-mt-24 md:scroll-mt-32 px-margin-safe';
+        wrapper.className = 'group relative mb-sm md:mb-md scroll-mt-24 md:scroll-mt-32 px-0 md:px-margin-safe';
         wrapper.id = `section-${type}`;
 
         const titleHeader = document.createElement('div');
-        titleHeader.className = 'flex justify-between items-end mb-sm';
+        titleHeader.className = 'flex justify-between items-end mb-sm px-4 md:px-0';
         titleHeader.innerHTML = `<h2 class="font-display-lg text-4xl text-primary tracking-tight italic">${type}</h2>`;
         wrapper.appendChild(titleHeader);
 
@@ -890,37 +890,50 @@ function setupReaderLogic() {
     const prevBtn = document.getElementById('prev-page');
     const nextBtn = document.getElementById('next-page');
     const indicator = document.getElementById('page-indicator');
+    const readerPage = container.querySelector('.reader-page');
     
     let currentPage = 0;
     let totalPages = 1;
 
+    function applyColumnLayout() {
+        const w = container.clientWidth;
+        const isMobile = window.innerWidth < 768;
+        const gap = isMobile ? 48 : 160;
+        const colWidth = w - gap;
+        readerPage.style.columnWidth = colWidth + 'px';
+        readerPage.style.columnGap = gap + 'px';
+    }
+
     function updateUI() {
-        totalPages = Math.ceil(container.scrollWidth / container.clientWidth);
-        if (currentPage >= totalPages) currentPage = Math.max(0, totalPages - 1);
+        applyColumnLayout();
+        
+        // Reset min-width to measure natural content width
+        readerPage.style.minWidth = '';
+        void container.scrollWidth; // force reflow
+        
+        totalPages = Math.max(1, Math.round(container.scrollWidth / container.clientWidth));
+        
+        // Force exact width so the last page isn't clamped by the browser
+        readerPage.style.minWidth = (totalPages * container.clientWidth) + 'px';
+        
+        if (currentPage >= totalPages) currentPage = totalPages - 1;
         if (currentPage < 0) currentPage = 0;
         
         container.scrollTo({ left: currentPage * container.clientWidth, behavior: 'auto' });
         
         indicator.innerText = `${String(currentPage + 1).padStart(2, '0')} / ${String(totalPages).padStart(2, '0')}`;
         
-        if (currentPage === 0) {
-            prevBtn.style.opacity = '0.3';
-            prevBtn.style.pointerEvents = 'none';
-        } else {
-            prevBtn.style.opacity = '1';
-            prevBtn.style.pointerEvents = 'auto';
-        }
-
-        if (currentPage >= totalPages - 1 || totalPages <= 1) {
-            nextBtn.style.opacity = '0.3';
-            nextBtn.style.pointerEvents = 'none';
-        } else {
-            nextBtn.style.opacity = '1';
-            nextBtn.style.pointerEvents = 'auto';
-        }
+        prevBtn.style.opacity = currentPage === 0 ? '0.3' : '1';
+        prevBtn.style.pointerEvents = currentPage === 0 ? 'none' : 'auto';
+        
+        const atEnd = currentPage >= totalPages - 1 || totalPages <= 1;
+        nextBtn.style.opacity = atEnd ? '0.3' : '1';
+        nextBtn.style.pointerEvents = atEnd ? 'none' : 'auto';
     }
 
     nextBtn.onclick = () => {
+        applyColumnLayout();
+        totalPages = Math.max(1, Math.round(container.scrollWidth / container.clientWidth));
         if (currentPage < totalPages - 1) {
             currentPage++;
             updateUI();
@@ -939,7 +952,9 @@ function setupReaderLogic() {
         updateUI();
     });
     
-    setTimeout(updateUI, 150);
+    // Initial layout — small delay to let images/fonts settle
+    applyColumnLayout();
+    setTimeout(updateUI, 200);
 }
 
 init();

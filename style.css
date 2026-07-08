@@ -76,16 +76,13 @@
 
 .reader-page {
     flex: 0 0 100%;
-    column-width: calc(100vw - 48px);
-    column-gap: 48px;
-    padding: 24px;
+    padding: 24px 24px 100px 24px;
     height: 100%;
     text-align: justify;
 }
 @media (min-width: 768px) {
     .reader-page {
-        column-width: calc(100vw - 160px);
-        padding: 40px 80px;
+        padding: 40px 80px 100px 80px;
     }
 }
 
@@ -95,6 +92,11 @@
     transform: translateY(-50%);
     background-color: transparent;
     cursor: pointer;
+    z-index: 30;
+}
+.floating-nav:active {
+    transform: translateY(-50%);
+    box-shadow: 4px 4px 0px 0px #1c1c19;
 }
 
 @keyframes marquee {

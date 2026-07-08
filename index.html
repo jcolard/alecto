@@ -66,10 +66,10 @@
         <!-- VIEW: GENERAL -->
         <main id="view-general" class="flex-grow flex flex-col overflow-hidden view active">
             <!-- Header -->
-            <header class="bg-surface border-b-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] flex justify-between items-center w-full px-margin-safe py-sm z-50">
-                <div id="logo-title-container" class="flex items-center gap-sm cursor-pointer select-none">
-                    <img src="alecto.png" alt="Alecto Logo" class="h-14 md:h-20 w-auto object-contain">
-                    <h1 class="font-display-lg text-4xl md:text-6xl font-bold tracking-tighter text-primary uppercase">ALEKTO</h1>
+            <header class="bg-surface border-b-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] flex justify-between items-center w-full px-margin-safe py-2 md:py-3 z-50">
+                <div id="logo-title-container" class="flex items-center gap-2 cursor-pointer select-none group">
+                    <img src="alecto.png" alt="Alecto Logo" class="h-8 md:h-12 w-auto object-contain transition-transform group-hover:scale-105">
+                    <h1 class="font-display-lg text-2xl md:text-4xl font-bold tracking-tighter text-primary uppercase">ALEKTO</h1>
                 </div>
                 <div class="flex items-center gap-sm">
                     <div class="relative flex">
@@ -148,19 +148,21 @@
         </div>
     </div>
 
-    <!-- PWA Install Modal -->
-    <div id="pwa-modal" class="fixed inset-0 z-50 flex flex-col justify-end md:justify-center items-center bg-on-surface/80 hidden opacity-0 transition-opacity duration-300">
-        <div id="pwa-modal-content" class="bg-surface border-4 border-on-surface brutal-shadow w-full max-w-md p-xl mb-4 md:mb-0 transform translate-y-full md:translate-y-8 transition-transform duration-300">
-            <h3 class="font-display-lg text-3xl uppercase text-primary mb-md">Installer Alekto</h3>
-            <p class="font-body-lg text-lg text-on-surface-variant mb-lg leading-relaxed">
-                Gardez ALEKTO à portée de main ! Installez l'application sur votre appareil pour une expérience plein écran, plus rapide et toujours accessible.
-            </p>
-            <div class="flex flex-col gap-sm">
-                <button id="btn-install-pwa" class="w-full py-3 bg-primary text-on-primary font-label-xl text-xl uppercase border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all">
-                    Installer maintenant
+    <!-- PWA Install Banner -->
+    <div id="pwa-modal" class="fixed bottom-0 left-0 w-full z-[100] flex flex-col items-center bg-transparent hidden opacity-0 transition-opacity duration-300 pointer-events-none">
+        <div id="pwa-modal-content" class="bg-surface border-t-4 border-l-4 border-r-4 md:border-4 border-on-surface brutal-shadow w-full max-w-xl p-md md:mb-4 transform translate-y-full transition-transform duration-300 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto">
+            <div class="flex-1">
+                <h3 class="font-display-lg text-xl uppercase text-primary mb-1 leading-none">Installer Alekto</h3>
+                <p class="font-body-sm text-sm text-on-surface-variant leading-tight">
+                    Accédez plus rapidement à vos récits.
+                </p>
+            </div>
+            <div class="flex flex-row gap-2 shrink-0">
+                <button id="btn-close-pwa" class="px-4 py-2 bg-surface text-on-surface font-label-md uppercase border-2 border-on-surface hover:bg-surface-variant transition-colors">
+                    Fermer
                 </button>
-                <button id="btn-close-pwa" class="w-full py-3 bg-surface text-on-surface font-label-xl text-xl uppercase border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all">
-                    Peut-être plus tard
+                <button id="btn-install-pwa" class="px-4 py-2 bg-primary text-on-primary font-label-md uppercase border-2 border-on-surface shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none transition-all">
+                    Installer
                 </button>
             </div>
         </div>
