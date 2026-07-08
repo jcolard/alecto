@@ -141,6 +141,6 @@
 }
 
 /* Typography specifics */
-p {
+.reader-page p {
     margin-bottom: 1.5rem;
 }

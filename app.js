@@ -264,6 +264,7 @@ function parseDate(dateStr) {
 }
 
 function showDetail() {
+    history.pushState({ view: 'detail' }, '', '#detail');
     viewDetail.classList.remove('hidden');
     viewDetail.classList.add('opacity-0', 'transition-opacity', 'duration-300', 'ease-in-out');
     
@@ -279,7 +280,12 @@ function showDetail() {
     }, 300);
 }
 
-function hideDetail() {
+function hideDetail(updateHistory = true) {
+    if (updateHistory && history.state && history.state.view === 'detail') {
+        history.back();
+        return; // popstate listener will handle the actual hiding
+    }
+
     viewGeneral.classList.remove('hidden');
     viewDetail.classList.add('transition-opacity', 'duration-300', 'ease-in-out');
     viewDetail.classList.add('opacity-0');
@@ -291,6 +297,14 @@ function hideDetail() {
 }
 
 function setupEvents() {
+    window.addEventListener('popstate', (e) => {
+        if (!e.state || e.state.view !== 'detail') {
+            if (!viewDetail.classList.contains('hidden')) {
+                hideDetail(false);
+            }
+        }
+    });
+
     btnBack.addEventListener('click', () => {
         hideDetail();
     });
@@ -377,7 +391,7 @@ function getFilteredPublications() {
 
 function createHeroHeaderHtml(p) {
     const wrapper = document.createElement('div');
-    wrapper.className = 'w-full mb-xl cursor-pointer group px-margin-safe';
+    wrapper.className = 'w-full mb-md md:mb-lg cursor-pointer group px-margin-safe';
     
     const imgUrl = p.image_url || 'https://via.placeholder.com/800x400?text=Audio';
     
@@ -458,7 +472,7 @@ function createAssociationBannerHtml(p) {
 
 function createFooterHtml(categories, tags) {
     const footer = document.createElement('footer');
-    footer.className = 'w-full bg-on-surface text-surface mt-xl py-xl px-margin-safe border-t-8 border-primary flex flex-col gap-xl brutal-shadow z-20 relative';
+    footer.className = 'w-full bg-on-surface text-surface mt-lg py-lg px-margin-safe border-t-8 border-primary flex flex-col gap-lg brutal-shadow z-20 relative';
     
     const catsHtml = categories.map(c => `<li><a href="#section-${c}" class="hover:text-primary transition-colors text-lg uppercase tracking-wider font-label-md inline-block py-1">${c}</a></li>`).join('');
     const tagsHtml = tags.map(t => `<li><button class="footer-tag-btn hover:text-primary transition-colors text-lg uppercase tracking-wider font-label-md text-left py-1" data-tag="${t}">${t}</button></li>`).join('');
@@ -564,7 +578,7 @@ function renderCarousels() {
         if (pubs.length === 0) return;
 
         const wrapper = document.createElement('div');
-        wrapper.className = 'group relative mb-sm md:mb-md scroll-mt-24 md:scroll-mt-32 px-0 md:px-margin-safe';
+        wrapper.className = 'group relative mb-xs md:mb-sm scroll-mt-24 md:scroll-mt-32 px-0 md:px-margin-safe';
         wrapper.id = `section-${type}`;
 
         const titleHeader = document.createElement('div');
