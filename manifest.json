@@ -5,7 +5,7 @@
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#1c1c19",
-  "theme_color": "#ae282c",
+  "theme_color": "#ea563b",
   "icons": [
     {
       "src": "./alecto192.png",

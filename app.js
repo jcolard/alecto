@@ -333,7 +333,7 @@ function setupEvents() {
             activeTags.clear();
             const headerBtns = document.querySelectorAll('#tags-dropdown button');
             headerBtns.forEach(b => {
-                b.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(174,40,44,1)]');
+                b.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
                 b.classList.add('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
             });
             renderCarousels();
@@ -363,11 +363,11 @@ function renderTags() {
             e.stopPropagation(); // Keep dropdown open when clicking tags
             if (activeTags.has(tag)) {
                 activeTags.delete(tag);
-                btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(174,40,44,1)]');
+                btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
                 btn.classList.add('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
             } else {
                 activeTags.add(tag);
-                btn.classList.add('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(174,40,44,1)]');
+                btn.classList.add('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
                 btn.classList.remove('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
             }
             renderCarousels();
@@ -523,10 +523,10 @@ function createFooterHtml(categories, tags) {
             const headerBtns = document.querySelectorAll('#tags-dropdown button');
             headerBtns.forEach(b => {
                 if (b.innerText === tag) {
-                    b.classList.add('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(174,40,44,1)]');
+                    b.classList.add('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
                     b.classList.remove('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
                 } else {
-                    b.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(174,40,44,1)]');
+                    b.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
                     b.classList.add('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
                 }
             });
@@ -663,12 +663,12 @@ function renderCarousels() {
 
         // Arrows
         const btnPrev = document.createElement('button');
-        btnPrev.className = 'absolute left-0 top-1/2 -translate-y-1/2 bg-on-surface text-surface p-2 shadow-[4px_4px_0px_0px_rgba(174,40,44,1)] hover:bg-primary transition-opacity duration-300 hidden md:block z-20 opacity-0 pointer-events-none';
+        btnPrev.className = 'absolute left-0 top-1/2 -translate-y-1/2 bg-on-surface text-surface p-2 shadow-[4px_4px_0px_0px_rgba(234,86,59,1)] hover:bg-primary transition-opacity duration-300 hidden md:block z-20 opacity-0 pointer-events-none';
         btnPrev.innerHTML = '<span class="material-symbols-outlined text-3xl">arrow_back</span>';
         btnPrev.onclick = () => trackContainer.scrollBy({left: -300, behavior: 'smooth'});
         
         const btnNext = document.createElement('button');
-        btnNext.className = 'absolute right-0 top-1/2 -translate-y-1/2 bg-on-surface text-surface p-2 shadow-[4px_4px_0px_0px_rgba(174,40,44,1)] hover:bg-primary transition-opacity duration-300 hidden md:block z-20 opacity-90';
+        btnNext.className = 'absolute right-0 top-1/2 -translate-y-1/2 bg-on-surface text-surface p-2 shadow-[4px_4px_0px_0px_rgba(234,86,59,1)] hover:bg-primary transition-opacity duration-300 hidden md:block z-20 opacity-90';
         btnNext.innerHTML = '<span class="material-symbols-outlined text-3xl">arrow_forward</span>';
         btnNext.onclick = () => trackContainer.scrollBy({left: 300, behavior: 'smooth'});
 
