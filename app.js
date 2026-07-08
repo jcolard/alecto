@@ -825,14 +825,12 @@ function openPublication(p) {
                 <div class="reader-page">
                     <!-- Page Header Meta -->
                     <div class="mb-lg border-b-2 border-on-surface pb-sm break-inside-avoid">
-                        <div class="flex justify-between items-baseline mb-sm">
-                            <span class="font-label-md text-on-surface-variant tracking-widest uppercase">${p.datetime}</span>
-                            <span class="font-label-md text-on-surface-variant tracking-widest uppercase">${p.description_auteur || ''}</span>
+                        <div class="flex justify-between items-center mb-sm gap-4">
+                            ${p.image_url ? `<img src="${p.image_url}" class="w-12 h-12 object-cover shrink-0 border-2 border-on-surface shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]" alt="Miniature">` : `<div class="w-12 h-12 border-2 border-on-surface bg-surface-variant shrink-0 shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]"></div>`}
+                            <span class="font-label-md text-on-surface-variant tracking-widest uppercase text-right leading-tight">${p.description_auteur || p.datetime}</span>
                         </div>
                         <div class="flex flex-wrap gap-xs">${tagsHtml}</div>
                     </div>
-                    
-                    ${p.image_url ? `<img src="${p.image_url}" class="w-full h-48 md:h-64 object-cover mb-lg border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] break-inside-avoid" alt="Couverture de l'article">` : ''}
                     
                     <!-- Content -->
                     <div class="text-on-surface font-body-lg text-xl">
