@@ -462,5 +462,31 @@
     "contenu": "",
     "tags": [],
     "image_url": "https://drive.google.com/thumbnail?id=15EMuMIH1CwJ3CVLjHkXev5bWFlDHj2vA"
+  },
+  {
+    "id": "4b1758b2",
+    "datetime": "08/07/2026 17:19:17",
+    "type": "Livre simple",
+    "titre": "Les misérables",
+    "description_auteur": "Victor Hugo",
+    "fichier": "",
+    "contenu": "l’avait marié de fort bonne heure, à dix-huit ou\nvingt ans, suivant un usage assez répandu dans\nles familles parlementaires. Charles Myriel,\nnonobstant ce mariage, avait, disait-on, beaucoup\nfait parler de lui. Il était bien fait de sa personne,\nquoique d’assez petite taille, élégant, gracieux,\nspirituel ; toute la première partie de sa vie avait\nété donnée au monde et aux galanteries. La\nrévolution survint, les événements se\nprécipitèrent, les familles parlementaires\ndécimées, chassées, traquées, se dispersèrent.\nM. Charles Myriel, dès les premiers jours de la\nrévolution, émigra en Italie1\n. Sa femme y mourut\nd’une maladie de poitrine dont elle était atteinte\ndepuis longtemps. Ils n’avaient point d’enfants.\nQue se passa-t-il ensuite dans la destinée de\nM. Myriel ? L’écroulement de l’ancienne société\nfrançaise, la chute de sa propre famille, les\ntragiques spectacles de 93, plus effrayants encore\npeut-être pour les émigrés qui les voyaient de loin\navec le grossissement de l’épouvante, firent-ils\ngermer en lui des idées de renoncement et de",
+    "tags": [
+      "Pour adulte"
+    ],
+    "image_url": "https://drive.google.com/thumbnail?id=1cpbOE99MheYj0v73M8J7lgwMjqMR9MsB"
+  },
+  {
+    "id": "0334a310",
+    "datetime": "08/07/2026 17:49:05",
+    "type": "note d'intention",
+    "titre": "Ma note number ONE",
+    "description_auteur": "Par Jérémy COLARD",
+    "fichier": "",
+    "contenu": "Ceci est ma super note d'intention",
+    "tags": [
+      "Oiseau"
+    ],
+    "image_url": "https://drive.google.com/thumbnail?id=17uin1tvWYR0SFWoCyvfwUUTA4J7zVkZz"
   }
 ]
