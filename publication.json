@@ -129,5 +129,18 @@
       "Pour enfant"
     ],
     "image_url": "https://drive.google.com/thumbnail?id=1pcuc5DLVbMU6XJi0KwfODImH1OU8YQUU"
+  },
+  {
+    "id": "0bfd9b1d",
+    "datetime": "08/07/2026 14:53:37",
+    "type": "Audio",
+    "titre": "Les Fables de Floriant",
+    "description_auteur": "Le vacher et le garde chasse",
+    "fichier": "publication_Files_/0bfd9b1d.fichier.125422.mp3",
+    "contenu": "",
+    "tags": [
+      "Pour enfant"
+    ],
+    "image_url": "https://drive.google.com/thumbnail?id=1jQvOFZJcz9BcJt6twosAfeyAGQGj_bms"
   }
 ]
