@@ -263,37 +263,77 @@ function parseDate(dateStr) {
     return new Date(y, m - 1, d, h, min, s).getTime();
 }
 
-function showDetail() {
+window.currentActiveCardImage = null;
+
+function showDetail(sourceElement) {
     history.pushState({ view: 'detail' }, '', '#detail');
-    viewDetail.classList.remove('hidden');
-    viewDetail.classList.add('opacity-0', 'transition-opacity', 'duration-300', 'ease-in-out');
     
-    // Trigger reflow
-    viewDetail.offsetHeight;
-    
-    viewDetail.classList.remove('opacity-0');
-    viewDetail.classList.add('opacity-100');
-    
-    setTimeout(() => {
-        viewGeneral.classList.add('hidden');
-        viewDetail.classList.remove('transition-opacity', 'duration-300', 'ease-in-out', 'opacity-100');
-    }, 300);
+    const targetElement = detailContent.querySelector('img.object-cover') || detailContent.querySelector('.bg-surface-variant') || detailContent.querySelector('.bg-cover');
+    if (targetElement) targetElement.style.viewTransitionName = 'pub-cover';
+
+    if (document.startViewTransition) {
+        const transition = document.startViewTransition(() => {
+            viewDetail.classList.remove('hidden');
+            viewGeneral.classList.add('hidden');
+        });
+        
+        transition.finished.finally(() => {
+            if (sourceElement) sourceElement.style.viewTransitionName = '';
+            if (targetElement) targetElement.style.viewTransitionName = '';
+        });
+    } else {
+        viewDetail.classList.remove('hidden');
+        viewDetail.classList.add('opacity-0', 'transition-opacity', 'duration-300', 'ease-in-out');
+        
+        viewDetail.offsetHeight; // Trigger reflow
+        
+        viewDetail.classList.remove('opacity-0');
+        viewDetail.classList.add('opacity-100');
+        
+        setTimeout(() => {
+            viewGeneral.classList.add('hidden');
+            viewDetail.classList.remove('transition-opacity', 'duration-300', 'ease-in-out', 'opacity-100');
+            if (sourceElement) sourceElement.style.viewTransitionName = '';
+            if (targetElement) targetElement.style.viewTransitionName = '';
+        }, 300);
+    }
 }
 
 function hideDetail(updateHistory = true) {
     if (updateHistory && history.state && history.state.view === 'detail') {
         history.back();
-        return; // popstate listener will handle the actual hiding
+        return; 
     }
 
-    viewGeneral.classList.remove('hidden');
-    viewDetail.classList.add('transition-opacity', 'duration-300', 'ease-in-out');
-    viewDetail.classList.add('opacity-0');
-    
-    setTimeout(() => {
-        viewDetail.classList.add('hidden');
-        viewDetail.classList.remove('transition-opacity', 'duration-300', 'ease-in-out', 'opacity-0');
-    }, 300);
+    let targetElement = window.currentActiveCardImage;
+    if (targetElement) targetElement.style.viewTransitionName = 'pub-cover';
+    let sourceElement = detailContent.querySelector('img.object-cover') || detailContent.querySelector('.bg-surface-variant') || detailContent.querySelector('.bg-cover');
+    if (sourceElement) sourceElement.style.viewTransitionName = 'pub-cover';
+
+    if (document.startViewTransition) {
+        const transition = document.startViewTransition(() => {
+            viewGeneral.classList.remove('hidden');
+            viewDetail.classList.add('hidden');
+        });
+        
+        transition.finished.finally(() => {
+            if (sourceElement) sourceElement.style.viewTransitionName = '';
+            if (targetElement) targetElement.style.viewTransitionName = '';
+            window.currentActiveCardImage = null;
+        });
+    } else {
+        viewGeneral.classList.remove('hidden');
+        viewDetail.classList.add('transition-opacity', 'duration-300', 'ease-in-out');
+        viewDetail.classList.add('opacity-0');
+        
+        setTimeout(() => {
+            viewDetail.classList.add('hidden');
+            viewDetail.classList.remove('transition-opacity', 'duration-300', 'ease-in-out', 'opacity-0');
+            if (sourceElement) sourceElement.style.viewTransitionName = '';
+            if (targetElement) targetElement.style.viewTransitionName = '';
+            window.currentActiveCardImage = null;
+        }, 300);
+    }
 }
 
 function setupEvents() {
@@ -657,7 +697,7 @@ function renderCarousels() {
                 }
             }
             
-            card.onclick = () => openPublication(p);
+            card.onclick = () => openPublication(p, card);
             trackContainer.appendChild(card);
         });
 
@@ -724,7 +764,7 @@ function renderCarousels() {
     }
 }
 
-function openPublication(p) {
+function openPublication(p, cardElement) {
     if (typeof p === 'string') {
         p = publications.find(pub => pub.id === p);
         if (!p) return;
@@ -734,8 +774,6 @@ function openPublication(p) {
         window.open(p.fichier, '_blank');
         return;
     }
-
-    showDetail();
     
     detailTitle.textContent = p.titre;
     detailContent.innerHTML = '';
@@ -846,6 +884,15 @@ function openPublication(p) {
         
         setupReaderLogic();
     }
+    
+    let sourceElement = null;
+    if (cardElement) {
+        sourceElement = cardElement.querySelector('.bg-cover') || cardElement;
+        sourceElement.style.viewTransitionName = 'pub-cover';
+        window.currentActiveCardImage = sourceElement;
+    }
+    
+    showDetail(sourceElement);
 }
 
 // Logic for custom audio player
