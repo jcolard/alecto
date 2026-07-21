@@ -91,6 +91,7 @@ if (btnCloseCookies) btnCloseCookies.addEventListener('click', () => closeCookie
 
 // Elements
 const viewGeneral = document.getElementById('view-general');
+let activeMainView = viewGeneral;
 const viewDetail = document.getElementById('view-detail');
 const carouselsContainer = document.getElementById('carousels-container');
 const tagsDropdown = document.getElementById('tags-dropdown');
@@ -274,7 +275,7 @@ function showDetail(sourceElement) {
     if (document.startViewTransition) {
         const transition = document.startViewTransition(() => {
             viewDetail.classList.remove('hidden');
-            viewGeneral.classList.add('hidden');
+            activeMainView.classList.add('hidden');
         });
         
         transition.finished.finally(() => {
@@ -291,7 +292,7 @@ function showDetail(sourceElement) {
         viewDetail.classList.add('opacity-100');
         
         setTimeout(() => {
-            viewGeneral.classList.add('hidden');
+            activeMainView.classList.add('hidden');
             viewDetail.classList.remove('transition-opacity', 'duration-300', 'ease-in-out', 'opacity-100');
             if (sourceElement) sourceElement.style.viewTransitionName = '';
             if (targetElement) targetElement.style.viewTransitionName = '';
@@ -312,7 +313,7 @@ function hideDetail(updateHistory = true) {
 
     if (document.startViewTransition) {
         const transition = document.startViewTransition(() => {
-            viewGeneral.classList.remove('hidden');
+            activeMainView.classList.remove('hidden');
             viewDetail.classList.add('hidden');
         });
         
@@ -322,7 +323,7 @@ function hideDetail(updateHistory = true) {
             window.currentActiveCardImage = null;
         });
     } else {
-        viewGeneral.classList.remove('hidden');
+        activeMainView.classList.remove('hidden');
         viewDetail.classList.add('transition-opacity', 'duration-300', 'ease-in-out');
         viewDetail.classList.add('opacity-0');
         
@@ -336,7 +337,39 @@ function hideDetail(updateHistory = true) {
     }
 }
 
+function switchMainView(hash) {
+    const views = {
+        '': document.getElementById('view-general'),
+        '#home': document.getElementById('view-general'),
+        '#philosophie': document.getElementById('view-philosophie'),
+        '#contact': document.getElementById('view-contact')
+    };
+    
+    let targetView = views[hash] || views['#home'];
+    if (activeMainView === targetView) return;
+    
+    activeMainView.classList.add('hidden');
+    targetView.classList.remove('hidden');
+    activeMainView = targetView;
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function setupEvents() {
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash;
+        if (hash !== '#detail') {
+            switchMainView(hash);
+        }
+    });
+
+    window.addEventListener('load', () => {
+        const hash = window.location.hash;
+        if (hash && hash !== '#detail') {
+            switchMainView(hash);
+        }
+    });
+
     window.addEventListener('popstate', (e) => {
         if (!e.state || e.state.view !== 'detail') {
             if (!viewDetail.classList.contains('hidden')) {
@@ -349,39 +382,64 @@ function setupEvents() {
         hideDetail();
     });
 
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    
+    if (mobileMenuBtn && closeMobileMenu && mobileOverlay) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileOverlay.classList.remove('hidden');
+        });
+        
+        closeMobileMenu.addEventListener('click', () => {
+            mobileOverlay.classList.add('hidden');
+        });
+        
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileOverlay.classList.add('hidden');
+            });
+        });
+    }
+
     // Toggle dropdown
-    searchBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        tagsDropdown.classList.toggle('hidden');
-    });
+    if (searchBtn) {
+        searchBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            tagsDropdown.classList.toggle('hidden');
+        });
+    }
 
     // Close dropdown on click outside
     document.addEventListener('click', (e) => {
-        if (!tagsDropdown.classList.contains('hidden') && !tagsDropdown.contains(e.target) && e.target !== searchBtn) {
+        if (tagsDropdown && !tagsDropdown.classList.contains('hidden') && !tagsDropdown.contains(e.target) && e.target !== searchBtn) {
             tagsDropdown.classList.add('hidden');
         }
     });
 
     // Logo & title click scroll to top / return home / reset filters
-    logoTitleContainer.addEventListener('click', () => {
-        if (!viewDetail.classList.contains('hidden')) {
-            hideDetail();
-        }
-        
-        // Reset tags
-        if (activeTags.size > 0) {
-            activeTags.clear();
-            const headerBtns = document.querySelectorAll('#tags-dropdown button');
-            headerBtns.forEach(b => {
-                b.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
-                b.classList.add('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
-            });
-            renderCarousels();
-        }
-        
-        carouselsContainer.scrollTo({ top: 0, behavior: 'smooth' });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (logoTitleContainer) {
+        logoTitleContainer.addEventListener('click', () => {
+            if (!viewDetail.classList.contains('hidden')) {
+                hideDetail();
+            }
+            
+            // Reset tags
+            if (activeTags.size > 0) {
+                activeTags.clear();
+                const headerBtns = document.querySelectorAll('#tags-dropdown button, #mobile-tags-container button');
+                headerBtns.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
+                    b.classList.add('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
+                });
+                renderCarousels();
+            }
+            
+            carouselsContainer.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
 function renderTags() {
@@ -391,6 +449,9 @@ function renderTags() {
     });
 
     tagsDropdown.innerHTML = '';
+    const mobileTagsContainer = document.getElementById('mobile-tags-container');
+    if (mobileTagsContainer) mobileTagsContainer.innerHTML = '';
+
     Array.from(allTags).sort().forEach(tag => {
         const btn = document.createElement('button');
         const randomRot = (Math.random() * 4 - 2).toFixed(2);
@@ -399,20 +460,36 @@ function renderTags() {
         btn.style.transform = `rotate(${randomRot}deg)`;
         btn.textContent = tag;
         
-        btn.onclick = (e) => {
-            e.stopPropagation(); // Keep dropdown open when clicking tags
+        const toggleTag = (e, triggerBtn) => {
+            e.stopPropagation(); 
             if (activeTags.has(tag)) {
                 activeTags.delete(tag);
-                btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
-                btn.classList.add('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
             } else {
                 activeTags.add(tag);
-                btn.classList.add('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
-                btn.classList.remove('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
             }
+            // Update all buttons for this tag
+            document.querySelectorAll('button.asymmetric-tag').forEach(b => {
+                if (b.textContent === tag) {
+                    if (activeTags.has(tag)) {
+                        b.classList.add('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
+                        b.classList.remove('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
+                    } else {
+                        b.classList.remove('bg-primary', 'text-on-primary', 'shadow-[2px_2px_0px_0px_rgba(234,86,59,1)]');
+                        b.classList.add('bg-surface', 'shadow-[2px_2px_0px_0px_rgba(28,28,25,1)]');
+                    }
+                }
+            });
             renderCarousels();
         };
+
+        btn.onclick = (e) => toggleTag(e, btn);
         tagsDropdown.appendChild(btn);
+
+        if (mobileTagsContainer) {
+            const mobileBtn = btn.cloneNode(true);
+            mobileBtn.onclick = (e) => toggleTag(e, mobileBtn);
+            mobileTagsContainer.appendChild(mobileBtn);
+        }
     });
 }
 
@@ -481,27 +558,26 @@ function createHeroHeaderHtml(p) {
 
 function createAssociationBannerHtml(p) {
     const banner = document.createElement('div');
-    banner.className = 'w-full mb-md md:mb-lg cursor-pointer group px-0 md:px-margin-safe';
+    // -mt-md pour absorber le padding de la grille
+    banner.className = 'w-full mb-xl -mt-md group px-0 border-b-4 border-on-surface shadow-[0px_4px_0px_0px_rgba(28,28,25,1)]';
     
     const imgUrl = p.image_url || 'https://via.placeholder.com/800x400?text=Association';
-    const rawExcerpt = p.description_auteur || '';
-    const excerpt = rawExcerpt.length > 150 ? rawExcerpt.substring(0, 150) + '...' : rawExcerpt;
     
     banner.innerHTML = `
-        <div class="flex flex-col md:flex-row-reverse border-4 border-on-surface brutal-shadow bg-surface-container overflow-hidden transition-transform group-hover:-translate-y-1">
+        <div class="flex flex-col md:flex-row-reverse bg-primary overflow-hidden transition-transform">
             
             <!-- Right/Top: Image -->
-            <div class="w-full md:w-1/2 aspect-video md:aspect-auto bg-cover bg-center border-b-4 md:border-b-0 md:border-l-4 border-on-surface" style="background-image: url('${imgUrl}')"></div>
+            <div class="w-full md:w-1/2 aspect-video md:aspect-auto bg-cover bg-center md:border-l-4 border-on-surface" style="background-image: url('${imgUrl}')"></div>
             
             <!-- Left/Bottom: Content -->
-            <div class="w-full md:w-1/2 p-md md:p-lg flex flex-col justify-center bg-primary relative overflow-hidden" onclick="openPublication('${p.id}')">
+            <div class="w-full md:w-1/2 p-md md:p-xl flex flex-col justify-center bg-primary relative overflow-hidden">
                 <div class="mb-sm">
                     <span class="inline-block bg-on-surface text-surface font-label-md px-2 py-1 uppercase tracking-widest text-sm">L'Association</span>
                 </div>
-                <h2 class="font-display-lg text-4xl md:text-5xl text-on-primary leading-none tracking-tight mb-md line-clamp-2">${p.titre}</h2>
-                <p class="font-body-lg text-lg text-on-primary/90 line-clamp-3 mb-md">${excerpt}</p>
+                <h3 class="font-label-xl uppercase tracking-widest text-on-primary/70 mb-2 text-xl md:text-2xl mt-4">La voix de la création littéraire et musicale</h3>
+                <h2 class="font-display-lg text-4xl md:text-5xl lg:text-7xl text-on-primary leading-none tracking-tight mb-lg line-clamp-2">${p.titre}</h2>
                 <div class="mt-auto">
-                    <button class="px-4 py-2 bg-on-surface text-surface font-label-lg uppercase border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] hover:bg-surface hover:text-on-surface active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">En savoir plus</button>
+                    <button onclick="location.hash='#philosophie'" class="px-6 py-3 bg-on-surface text-surface font-label-xl uppercase border-2 border-on-surface shadow-[6px_6px_0px_0px_rgba(28,28,25,1)] hover:bg-surface hover:text-on-surface active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">En savoir plus</button>
                 </div>
             </div>
         </div>
@@ -579,7 +655,15 @@ function createFooterHtml(categories, tags) {
 function renderCarousels() {
     carouselsContainer.innerHTML = '';
     
-    // HERO HEADER LOGIC
+    const l666Pub = publications.find(p => p.id === 'L666');
+    
+    // ASSOCIATION HERO BANNER (TOP)
+    if (activeTags.size === 0 && !searchQuery && l666Pub) {
+        const bannerHtml = createAssociationBannerHtml(l666Pub);
+        carouselsContainer.appendChild(bannerHtml);
+    }
+    
+    // HERO AUDIO LOGIC
     if (activeTags.size === 0 && !searchQuery) {
         const audios = publications.filter(p => p.type === 'Audio');
         if (audios.length > 0) {
@@ -593,6 +677,7 @@ function renderCarousels() {
     const grouped = {};
     
     filtered.forEach(p => {
+        if (p.id === 'L666') return; // Skip it from the normal carousels since it's now a global banner
         if (!grouped[p.type]) grouped[p.type] = [];
         grouped[p.type].push(p);
     });
@@ -605,14 +690,7 @@ function renderCarousels() {
         if(pubs.length === 0) return;
 
         if (type === 'Article') {
-            const l666Index = pubs.findIndex(p => p.id === 'L666');
-            if (l666Index !== -1) {
-                const l666Pub = pubs[l666Index];
-                pubs.splice(l666Index, 1);
-                
-                const bannerHtml = createAssociationBannerHtml(l666Pub);
-                carouselsContainer.appendChild(bannerHtml);
-            }
+            // L666 is already handled as a top banner, no need to inject it here
         }
         
         if (pubs.length === 0) return;

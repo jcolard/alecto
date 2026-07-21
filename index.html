@@ -63,31 +63,140 @@
 <body class="bg-surface text-on-surface font-body-lg h-full flex flex-col selection:bg-primary selection:text-on-primary">
     <div id="app" class="relative z-10 w-full h-full flex flex-col overflow-hidden page-load-animation">
         
-        <!-- VIEW: GENERAL -->
-        <main id="view-general" class="flex-grow flex flex-col overflow-hidden view active">
-            <!-- Header -->
-            <header class="bg-surface border-b-4 border-on-surface flex justify-between items-center w-full px-margin-safe py-2 md:py-3 z-50">
-                <div id="logo-title-container" class="flex items-center gap-2 cursor-pointer select-none group">
-                    <img src="alecto.png" alt="Alecto Logo" class="h-8 md:h-12 w-auto object-contain transition-transform group-hover:scale-105">
-                    <h1 class="font-display-lg text-2xl md:text-4xl font-bold tracking-tighter text-primary uppercase">ALEKTO</h1>
-                </div>
-                <div class="flex items-center gap-sm">
-                    <div class="relative flex">
-                        <button id="search-btn" class="border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] bg-surface-container px-4 py-2 flex items-center justify-center text-primary font-label-md font-bold uppercase hover:bg-surface-variant select-none active:translate-y-[2px] active:translate-x-[2px] active:shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] transition-all">
-                            <span class="material-symbols-outlined">filter_list</span>
-                        </button>
-                        <!-- Dropdown tags menu -->
-                        <div id="tags-dropdown" class="hidden absolute right-0 top-full mt-2 bg-surface border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] p-sm z-50 flex flex-wrap gap-xs max-w-xs md:max-w-md">
-                            <!-- Tags injected dynamically -->
-                        </div>
+        <!-- GLOBAL HEADER -->
+        <header class="bg-surface border-b-4 border-on-surface flex justify-between items-center w-full px-margin-safe py-2 md:py-3 z-30 shrink-0">
+            <div id="logo-title-container" class="flex items-center gap-2 cursor-pointer select-none group" onclick="location.hash='#home'">
+                <img src="alecto.png" alt="Alecto Logo" class="h-8 md:h-12 w-auto object-contain transition-transform group-hover:scale-105">
+                <h1 class="font-display-lg text-2xl md:text-4xl font-bold tracking-tighter text-primary uppercase">ALEKTO</h1>
+            </div>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-6 font-label-md font-bold uppercase tracking-widest text-on-surface-variant">
+                <a href="#home" class="hover:text-primary transition-colors">Accueil</a>
+                <a href="#philosophie" class="hover:text-primary transition-colors">Notre Philosophie</a>
+                <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+                
+                <div class="relative flex ml-2">
+                    <button id="search-btn" class="border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] bg-surface-container px-4 py-2 flex items-center justify-center text-primary font-label-md font-bold uppercase hover:bg-surface-variant select-none active:translate-y-[2px] active:translate-x-[2px] active:shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] transition-all">
+                        Filtres
+                    </button>
+                    <!-- Dropdown tags menu -->
+                    <div id="tags-dropdown" class="hidden absolute right-0 top-full mt-2 bg-surface border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] p-sm z-50 flex flex-wrap gap-xs w-80">
+                        <!-- Tags injected dynamically -->
                     </div>
                 </div>
-            </header>
+            </div>
 
+            <!-- Mobile Burger Btn -->
+            <button id="mobile-menu-btn" class="md:hidden border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] bg-surface-container w-10 h-10 flex items-center justify-center text-primary active:translate-y-[2px] active:translate-x-[2px] active:shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] transition-all">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </header>
+
+        <!-- MOBILE OVERLAY MENU -->
+        <div id="mobile-overlay" class="hidden absolute inset-0 bg-surface z-50 flex flex-col pt-20 px-margin-safe pb-margin-safe overflow-y-auto">
+            <button id="close-mobile-menu" class="absolute top-4 right-4 border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] bg-surface-container w-10 h-10 flex items-center justify-center text-primary active:translate-y-[2px] active:translate-x-[2px] active:shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] transition-all">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            
+            <nav class="flex flex-col gap-8 font-display-lg text-4xl font-bold uppercase text-on-surface">
+                <a href="#home" class="mobile-link hover:text-primary transition-colors border-b-2 border-on-surface-variant pb-2">Accueil</a>
+                <a href="#philosophie" class="mobile-link hover:text-primary transition-colors border-b-2 border-on-surface-variant pb-2">Notre Philosophie</a>
+                <a href="#contact" class="mobile-link hover:text-primary transition-colors border-b-2 border-on-surface-variant pb-2">Contact</a>
+            </nav>
+            
+            <div class="mt-12 flex flex-col gap-4">
+                <h3 class="font-label-md font-bold uppercase text-on-surface-variant tracking-widest">Catégories</h3>
+                <div id="mobile-tags-container" class="flex flex-wrap gap-xs">
+                    <!-- Tags injected here for mobile -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- VIEW: GENERAL -->
+        <main id="view-general" class="flex-grow flex flex-col overflow-hidden view active relative z-10">
             <div class="flex-grow flex flex-col overflow-hidden">
-                
                 <!-- Carousels Section -->
                 <div id="carousels-container" class="flex-grow overflow-y-auto no-scrollbar pt-md pb-xl relative z-10"></div>
+            </div>
+        </main>
+
+        <!-- VIEW: PHILOSOPHIE -->
+        <main id="view-philosophie" class="view hidden flex-grow overflow-y-auto pt-md pb-xl px-margin-safe bg-surface relative z-10">
+            <div class="max-w-3xl mx-auto flex flex-col gap-8">
+                <div class="border-l-4 border-primary pl-4 mb-4">
+                    <h2 class="font-display-lg text-4xl md:text-5xl font-bold uppercase">Qu'est-ce que Alekto ?</h2>
+                    <p class="font-body-lg text-xl mt-2 text-on-surface-variant">Une association culturelle et artistique dédiée aux œuvres impliquant un rapport étroit entre le texte et la musique.</p>
+                </div>
+                
+                <section class="bg-surface-container border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] p-6">
+                    <h3 class="font-label-xl uppercase text-2xl mb-2">Direction et Figures Clés</h3>
+                    <h4 class="font-display-lg text-2xl text-primary font-bold">Olivier Cohen (Fondateur & Animateur principal)</h4>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-lg">
+                        <li><strong>Parcours :</strong> Formation en lettres modernes (Khâgne au Lycée Condorcet, DEA à Paris X en dramaturgie du XVIIᵉ siècle), ancien enseignant en lycée, classes préparatoires et à l'Université Paris VIII.</li>
+                        <li><strong>Activités :</strong> Auteur, metteur en scène, réalisateur audio et chroniqueur.</li>
+                        <li><strong>Distinctions :</strong> Double lauréat de l'Aide à la Création du Ministère de la Culture, Lauréat de la Fondation Beaumarchais, récompensé par plus de 20 distinctions de l'Académie Charles Cros, dont un Grand Prix.</li>
+                        <li><strong>Ouvrages & Traductions :</strong> Auteur d'un ouvrage sur le métier de comédien (Éditions Chiron, 2014). Co-traducteur de <em>Antigone à New York</em>, joué notamment à la Comédie-Française.</li>
+                    </ul>
+                </section>
+                
+                <section class="bg-surface border-2 border-on-surface p-6">
+                    <h3 class="font-label-xl uppercase text-2xl mb-4 border-b-2 border-on-surface pb-2">Pôles d'Activités et Services Proposés</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                        <div>
+                            <h4 class="font-bold text-lg">1. Enregistrements & Livres-Disques</h4>
+                            <p class="text-sm mt-1 text-on-surface-variant">Catalogue historique développé depuis 1995 : plus de 200 livres-disques vendus à plus de 2 000 000 d'exemplaires.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">2. Édition (Textes et Partitions)</h4>
+                            <p class="text-sm mt-1 text-on-surface-variant">Publication des œuvres littéraires, livrets et partitions musicales sélectionnés par son comité de lecture.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">3. Créations Scéniques & Musicales</h4>
+                            <p class="text-sm mt-1 text-on-surface-variant">Projets de création originale : opéras, lieder, contes musicaux, récitatifs, théâtre instrumental.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">4. Agence de Production : Les Comptoirs d'Alekto</h4>
+                            <p class="text-sm mt-1 text-on-surface-variant">Structure de production et de diffusion de projets artistiques et musicaux.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">5. Chroniques & Prises de Position</h4>
+                            <p class="text-sm mt-1 text-on-surface-variant">Réflexions, essais et articles sur des thématiques culturelles (Les Billets d'Alekto).</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">6. Projets & Formations</h4>
+                            <p class="text-sm mt-1 text-on-surface-variant">Masterclass et ateliers de préparation scénique et théâtrale pour chanteurs lyriques et comédiens.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="mb-12">
+                    <h3 class="font-label-xl uppercase text-2xl mb-4 text-primary">Œuvres et Collaborations Majeures</h3>
+                    <p class="text-lg italic text-on-surface-variant">Un visage (Denis Lavant), Pour quelques âmes volées (Orchestre Philharmonique de Radio France), Les notes bleues (Robin Renucci), L'Homme à l'Orchestre (Jean-Pierre Cassel), Zéphyr, Silence ! (Karin Viard), Un Carnaval des Animaux (Jeanne Balibar), La Guerre des Voyelles et des Consonnes...</p>
+                    
+                    <h4 class="font-bold text-lg mt-6">Voix et Comédiens Renommés</h4>
+                    <p class="text-sm mt-2 leading-relaxed">Fanny Ardant, Michel Aumont, Charles Aznavour, Didier Bourdon, Emmanuelle Devos, Claude Brasseur, Isabelle Carré, Jean-Pierre Cassel, Marion Cotillard, François Cluzet, Clotilde Coureau, Michel Duchaussoy, Cécile de France, Marina Foïs, Catherine Frot, Anouk Grinberg, Denis Lavant, Virginie Ledoyen, Thierry Lhermitte, Jean-Pierre Marielle, Philippe Noiret, Vincent Perez, Daniel Prévost, Robin Renucci, Claude Rich, Jean Rochefort, Sylvie Testud, Zabou Breitman, etc.</p>
+                </section>
+            </div>
+        </main>
+
+        <!-- VIEW: CONTACT -->
+        <main id="view-contact" class="view hidden flex-grow overflow-y-auto pt-md pb-xl px-margin-safe bg-surface flex items-center justify-center relative z-10">
+            <div class="max-w-md w-full bg-surface-container border-2 border-on-surface shadow-[8px_8px_0px_0px_rgba(28,28,25,1)] p-8">
+                <h2 class="font-display-lg text-4xl font-bold uppercase mb-2 border-b-4 border-primary pb-2">Contactez-nous</h2>
+                <p class="font-body-lg text-lg mb-6 text-on-surface-variant">Association culturelle Loi 1901.</p>
+                
+                <div class="flex flex-col gap-4 mb-8 font-label-md uppercase tracking-wider">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">public</span>
+                        <a href="https://alekto.fr/" target="_blank" class="hover:text-primary transition-colors">alekto.fr</a>
+                    </div>
+                </div>
+                
+                <a href="mailto:contact@alekto.fr" class="w-full bg-primary text-on-primary font-label-xl uppercase flex justify-center items-center gap-2 py-4 border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(28,28,25,1)] hover:bg-surface-variant hover:text-primary active:translate-y-[2px] active:translate-x-[2px] active:shadow-[2px_2px_0px_0px_rgba(28,28,25,1)] transition-all">
+                    <span class="material-symbols-outlined">mail</span>
+                    Nous envoyer un message
+                </a>
             </div>
         </main>
 
